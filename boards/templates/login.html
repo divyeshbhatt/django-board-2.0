@@ -1,0 +1,44 @@
+{% extends 'base_accounts.html' %}
+
+{% load staticfiles %}
+
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/accounts.css' %}">
+
+{% endblock %}
+
+{% block body %}
+	<div class='container'>
+		<h1 class='text-center logo my-4'>
+			<a href="{% url 'home' %}">Django Board</a></h1>
+			<div class='row justify-content-center'>
+				<div class='col-lg-8 col-md-10 col-sm-12'>
+					<div class='card'>
+						<div class='card-body'>
+							<h3 class='card-title'>Login</h3>
+
+							<form method=POST novalidate>
+								{% csrf_token %}
+								<input type="hidden" name="next" value="{{next}}">
+								{% include 'includes/form.html' %}
+
+								<button type='submit' class='btn btn-primary'>Login</button>
+								
+							</form>
+						</div>
+						<div class='card-footer text-muted text-center'>
+							New to Django Board ?<a href="{% url 'signup' %}">Sign Up</a>
+						</div>
+					</div>
+					<div class='text-center py-2'>
+						<small>
+							<a href="{% url 'password_reset' %}" class='text-muted'>Forgot Your Password ?</a>
+						</small>
+						
+					</div>
+				</div>
+			</div>
+			
+	</div>
+
+{% endblock %}

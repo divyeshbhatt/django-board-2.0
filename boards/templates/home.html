@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+	{% block breadcrump %}
+
+		<div class= 'bg-faded'>
+			<h2 class='myfont'>Boards</h2>
+		</div>
+			
+			<ol class='breadcrumb my-2'>
+				<li class='breadcrumb-item active'><a href="{% url 'home' %}">Boards</a></li>
+			</ol>
+	{% endblock %}
+	
+	{% block boards %}
+	
+	<table class = 'table'>
+		<thead class ='thead-inverse bg-primary'>
+			<tr>
+				<th>Board</th>
+				<th>Post</th>
+				<th>Topic</th>
+				<th>Last Post</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for board in boards %}
+			<tr>
+				<td><a href="{% url 'boards' pk=board.pk %}">{{board.name}}</a> <br> 
+				<small style='color:#888'> {{ board.description}}</small>
+				</td>
+
+				<td class='align-middle'> {{ board.get_post_count }} </td>
+				<td class='align-middle'> {{ board.topics.count }}</td>
+				<td class='align-middle'> {% with post=board.get_last_post %}
+					{% if post %}
+					<small>
+					<a href="{% url 'topic_posts' board.pk post.topics.pk %}"> by {{post.created_by.username }}
+					at {{post.created_at }}</a>
+					</small>
+					{% else %}
+					<small class='text-muted'>
+						<em>No Post at all</em>
+					</small>
+					{% endif %}
+					{% endwith %}
+
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% endblock %}

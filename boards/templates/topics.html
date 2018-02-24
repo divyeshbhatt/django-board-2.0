@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+
+	{% block breadcrump %}
+	
+	<div class= 'bg-faded'>
+		<h2>Topics</h2>
+	</div>
+		
+		<ol class='breadcrumb my-2'>
+			<li class='breadcrumb-item'><a href="{% url 'home' %}">Boards</a></li>
+			<li class='breadcrumb-item active'> {{board.name}}</li>
+		</ol>
+
+	{% endblock %}
+
+	{% block contents %}
+		<a class='btn btn-primary btn-lg' href="{% url 'new_topic' board.pk %}" role='button'>New Topic</a>
+	<div class='my-4'>
+		<table class='table'>
+			<thead class='thead-inverse'>
+				<tr>
+					<th>Topic</th>
+					<th>Starter</th>
+					<th>Replies</th>
+					<th>Views</th>
+					<th>Last Updated</th>
+				</tr>
+				
+			</thead>
+			<tbody>
+				{% for topic in topics %}
+				  <tr>
+				    <td><a href="{% url 'topic_posts' board.pk topic.pk %}">{{ topic.subject }}</a></td>
+				    <td>{{ topic.starter.username }}</td>
+				    <td>{{ topic.replies }}</td>
+				    <td>0</td>
+				    <td>{{ topic.last_updated }}</td>
+				  </tr>
+				{% endfor %}
+			</tbody>
+
+		</table>
+	</div>
+	{% endblock %}
